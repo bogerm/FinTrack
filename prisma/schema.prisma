@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime      @default(now())
+  transactions Transaction[]
+  holdings     StockHolding[]
+  apiKeys      ApiKey[]
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date        DateTime
+  amount      Float
+  description String
+  category    String
+  type        String   // "INCOME" or "EXPENSE"
+  isRecurring Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model StockHolding {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ticker    String
+  shares    Float
+  avgCost   Float
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, ticker])
+}
+
+model StockPrice {
+  ticker      String   @id
+  price       Float
+  lastUpdated DateTime @default(now())
+}
+
+model ApiKey {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  key       String   @unique
+  name      String
+  active    Boolean  @default(true)
+}
