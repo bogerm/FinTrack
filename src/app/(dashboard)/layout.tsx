@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutDashboard, ArrowLeftRight, TrendingUp, Key, LogOut } from "lucide-react";
+import { LayoutDashboard, ArrowLeftRight, TrendingUp, Key, BarChart3, LogOut } from "lucide-react";
 import { verifySession } from "@/lib/dal";
 import { signout } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
@@ -47,6 +47,13 @@ export default async function DashboardLayout({
           >
             <Key className="h-4 w-4" />
             API Keys
+          </Link>
+          <Link
+            href="/dashboard/analytics"
+            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
+          >
+            <BarChart3 className="h-4 w-4" />
+            Analytics
           </Link>
         </nav>
         <Separator />
