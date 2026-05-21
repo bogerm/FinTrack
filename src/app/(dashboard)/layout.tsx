@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutDashboard, ArrowLeftRight, LogOut } from "lucide-react";
+import { LayoutDashboard, ArrowLeftRight, TrendingUp, LogOut } from "lucide-react";
 import { verifySession } from "@/lib/dal";
 import { signout } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
@@ -33,6 +33,13 @@ export default async function DashboardLayout({
           >
             <ArrowLeftRight className="h-4 w-4" />
             Transactions
+          </Link>
+          <Link
+            href="/dashboard/portfolio"
+            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
+          >
+            <TrendingUp className="h-4 w-4" />
+            Portfolio
           </Link>
         </nav>
         <Separator />
